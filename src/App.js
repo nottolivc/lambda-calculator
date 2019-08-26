@@ -1,11 +1,19 @@
-import React from "react";
-import "./App.css";
+
+//import { numbers, operators, specials } from './data.js'
 // STEP 4 - import the button and display components
 // Don't forget to import any extra css/scss files you build into the correct component
 
 // Logo has already been provided for you. Do the same for the remaining components
-import Logo from "./components/DisplayComponents/Logo";
 
+import React, { useState } from "react";
+import "./App.css";
+import Numbers from "./components/ButtonComponents/NumberButtons/Numbers";
+import Operators from "./components/ButtonComponents/OperatorButtons/Operators";
+import Specials from "./components/ButtonComponents/SpecialButtons/Specials";
+import Logo from "./components/DisplayComponents/Logo";
+import Display from "./components/DisplayComponents/Display";
+
+ 
 function App() {
   // STEP 5 - After you get the components displaying using the provided data file, write your state hooks here.
   // Once the state hooks are in place write some functions to hold data in state and update that data depending on what it needs to be doing
@@ -13,14 +21,40 @@ function App() {
   // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
   // Don't forget to pass the functions (and any additional data needed) to the components as props
 
-  return (
-    <div className="container">
-      <Logo />
-      <div className="App">
-        {/* STEP 4 - Render your components here and be sure to properly import/export all files */}
+  
+  const [display, setDisplay] = useState('');
+  
+    // style the background variable
+    const backgroundStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100vh',
+      background: 'black',
+      backgroundSize: 'cover',
+      margin: '0 auto',
+    };
+  
+    return (
+      <div className="background-image" style={ backgroundStyle}>
+        <div className="back-container">
+          <div className="main-container">
+            <Logo />
+            <Display total={display}/>
+            <div className='buttons-container'>
+              <div className="special-number">
+                <Specials setDisplay={setDisplay} display={display}/>
+                <Numbers setDisplay={setDisplay} display={display}/>
+              </div>
+              <div className="operators">
+                <Operators setDisplay={setDisplay} display={display}/>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  );
-}
-
-export default App;
+    );
+  }
+  //thanks to mr. durbin for showing me the way on this project which I will continue to update and rewrite for myself
+  export default App;
